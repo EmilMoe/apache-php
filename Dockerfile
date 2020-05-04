@@ -28,3 +28,4 @@ RUN apt-get update && apt-get -yq upgrade \
 EXPOSE 80/tcp 443/tcp
 
 ENTRYPOINT ["entrypoint"]
+
