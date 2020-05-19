@@ -16,7 +16,7 @@ RUN apt-get update && apt-get -yq upgrade \
     && sed -ri '/Options/d' /etc/apache2/apache2.conf \
         && ln -sf /dev/stdout /var/log/apache2/access.log \
         && ln -sf /dev/stderr /var/log/apache2/error.log \
-    && echo "upload_max_filesize = 250M;" >> /etc/php/7.4/apache2/conf.d/30-uploads.ini \
+    && echo "upload_max_filesize = 50M;" >> /etc/php/7.4/apache2/conf.d/30-uploads.ini \
     && mkdir -p /var/www/html && rm -r /var/www/html/* \
     && { \
         echo "#!/usr/bin/env bash"; \
