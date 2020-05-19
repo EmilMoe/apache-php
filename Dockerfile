@@ -31,7 +31,7 @@ RUN apt-get update && apt-get -yq upgrade \
     && apt-get -yq clean autoclean && apt-get -yq autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-USER docker
+USER ${UID}:${GID}
 
 EXPOSE 80/tcp 443/tcp
 
