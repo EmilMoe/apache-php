@@ -3,13 +3,16 @@ FROM ubuntu:focal
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Copenhagen
 
+ARG USER=docker
+ARG UID=1000
+ARG GID=1000
+
 RUN apt-get update && apt-get -yq upgrade \
     && apt-get install -yq apache2 libapache2-mod-php7.4 php7.4 php7.4-mysql \
        php7.4-bcmath php7.4-bz2 php7.4-mbstring php7.4-zip \
        php7.4-common php7.4-xml php7.4-cli php7.4-curl git \
        unzip curl php-imagick composer software-properties-common \
-    && groupadd -g 1001 docker \
-    && useradd -g 1001 -l -M -s /bin/false -u 1001 docker \
+    && useradd -m ${USER} --uid=${UID} \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && a2enmod rewrite \
     && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/apache2.conf \
