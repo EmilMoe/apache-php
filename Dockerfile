@@ -10,6 +10,7 @@ RUN apt-get update && apt-get -yq upgrade \
        unzip curl php-imagick composer software-properties-common wget \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && a2enmod rewrite \
+    && a2enmod expires \
     && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/apache2.conf \
     && sed -ri '/Options/d' /etc/apache2/apache2.conf \
         && ln -sf /dev/stdout /var/log/apache2/access.log \
