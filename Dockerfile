@@ -18,7 +18,7 @@ RUN apt-get update && apt-get -yq upgrade \
         && ln -sf /dev/stderr /var/log/apache2/error.log \
     && echo "upload_max_filesize = 100M;" >> /etc/php/7.4/apache2/conf.d/30-uploads.ini \
     && mkdir -p /var/www/html && rm -r /var/www/html/* \
-    && chown www-data:www-data /var/www/html/ \
+    && chgrp www-data /var/www/html/ \
     && chmod 775 -R /var/www/html \
     && { \
         echo "#!/usr/bin/env bash"; \
