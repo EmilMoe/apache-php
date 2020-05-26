@@ -4,16 +4,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Copenhagen
 
 RUN apt-get update && apt-get -yq upgrade \
-    && apt-get install -yq apache2 libapache2-mod-php7.4 php7.4 php7.4-mysql php7.4-intl \
-       php7.4-bcmath php7.4-bz2 php7.4-mbstring php7.4-zip \
-       php7.4-common php7.4-xml php7.4-cli php7.4-curl git \
+    && apt-get install -yq apache2 libapache2-mod-php7.4 php7.4 php-mysql php-intl \
+       php-bcmath php-bz2 php-mbstring php-zip \
+       php-common php-xml php-cli php-curl git \
        unzip curl php-imagick composer software-properties-common wget \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && a2enmod rewrite \
     && a2enmod expires \
     && a2enmod headers \
-    && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/apache2.conf \
-    && sed -ri '/Options/d' /etc/apache2/apache2.conf \
+    && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/sites-enabled/000-default.conf \
+    && sed -ri '/Options/d' /etc/apache2/sites-enabled/000-default.conf \
         && ln -sf /dev/stdout /var/log/apache2/access.log \
         && ln -sf /dev/stderr /var/log/apache2/error.log \
     && echo "upload_max_filesize = 100M;" >> /etc/php/7.4/apache2/conf.d/30-uploads.ini \
