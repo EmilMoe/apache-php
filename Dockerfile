@@ -12,8 +12,8 @@ RUN apt-get update && apt-get -yq upgrade \
     && a2enmod rewrite \
     && a2enmod expires \
     && a2enmod headers \
-    && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/sites-enabled/000-default.conf \
-    && sed -ri '/Options/d' /etc/apache2/sites-enabled/000-default.conf \
+    && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/apache2.conf \
+    && sed -ri '/Options/d' /etc/apache2/apache2.conf \
         && ln -sf /dev/stdout /var/log/apache2/access.log \
         && ln -sf /dev/stderr /var/log/apache2/error.log \
     && echo "upload_max_filesize = 100M;" >> /etc/php/7.4/apache2/conf.d/30-uploads.ini \
