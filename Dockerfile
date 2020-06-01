@@ -6,7 +6,7 @@ ENV TZ=Europe/Copenhagen
 RUN apt-get update && apt-get -yq upgrade \
     && apt-get install -yq apache2 libapache2-mod-php7.4 php7.4 php-mysql php-intl \
        php-bcmath php-bz2 php-mbstring php-zip \
-       php-common php-xml php-cli php-curl git \
+       php-common php-xml php-cli php-curl \
        unzip curl php-imagick composer software-properties-common wget \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && a2enmod rewrite \
