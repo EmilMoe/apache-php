@@ -32,12 +32,20 @@ RUN apt-get install -qy \
     && curl -sS https://getcomposer.org/installer -o composer-setup.php \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     
-    && rm -dr /var/www/html \
-    && mkdir -p /var/www/html \
-    
     && a2enmod rewrite \
     && a2enmod expires \
     && a2enmod headers \
+    
+    && sed -ri '/AllowOverride/s/^\t+(\S+).*/\t\1 All/' /etc/apache2/apache2.conf \
+    && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-enabled/000-default.conf \
+    && sed -ri '/Options/d' /etc/apache2/apache2.conf \
+    && ln -sf /dev/stdout /var/log/apache2/access.log \
+    && ln -sf /dev/stderr /var/log/apache2/error.log \
+    && echo "upload_max_filesize = 250M;" >> /etc/php/7.4/apache2/conf.d/30-uploads.ini \
+    && rm -dr /var/www/html \
+    && mkdir -p /var/www/html \
+    && chgrp -R www-data /var/www/html/ \
+    && chmod 775 -R /var/www/html \
     
     && { \
         echo "#!/usr/bin/env bash"; \
