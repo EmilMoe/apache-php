@@ -37,6 +37,18 @@ RUN apt-get install -qy \
     
     && a2enmod rewrite \
     && a2enmod expires \
-    && a2enmod headers
+    && a2enmod headers \
+    
+    && { \
+        echo "#!/usr/bin/env bash"; \
+        echo "set -e"; \
+        echo "rm -f /run/apache2/apache2.pid"; \
+        echo "exec apache2ctl -DFOREGROUND \"\$@\""; \
+    } > /usr/local/bin/entrypoint \
+    && chmod a+rx /usr/local/bin/entrypoint \
+    && apt-get -yq clean autoclean && apt-get -yq autoremove \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
+EXPOSE 80 443
+ENTRYPOINT ["entrypoint"]
