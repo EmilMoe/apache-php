@@ -25,6 +25,7 @@ RUN apt-get install -qy \
     php7.4-common \
     php7.4-imagick \
     php7.4-mbstring \
+    build-essential \
     libapache2-mod-php7.4 \
     software-properties-common \
     
